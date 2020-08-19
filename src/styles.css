@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+/* Otros Temas en node_modules/@angular/material/prebuilt-themes/...  */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-form-field {
+  width: 33%;
+}
+.mat-form-field-wrapper {
+  margin-right: 15px;
+}
+
+mat-card {
+  margin-top: 15px;
+}
+
+/*
+ * Media Queries ó Media CSS Queries
+ * .mat-form-field es el wrapper de los formularios inputs
+ */
+@media only screen and (max-device-width: 768px){
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.fecha-nota {
+  font-size: .85rem;
+  opacity: .5;
+  font-style: italic;
+  float: right;
+  font-weight: normal;
+}
+.icono-eliminar {
+  float: right;
+  font-weight: normal;
+  opacity:.5;
+  margin-right: .35rem;
+  font-size: 25px;
+  cursor: pointer;
+}
+.icono-eliminar:active, .icono-eliminar:hover {
+  opacity:1;
+}
+
+.id_subtitle {
+  font-size: 10px;
+  font-family: monospace;
+}
+
+.alicedeejay {
+  background-color: aliceblue;
+}
+.ziucolor {
+  background-color: #53aab5;
+  color: white;
+  font-weight: bold;
+}
+mat-card#matFiltro {
+  background: #53aab5;
+  color: white;
+}

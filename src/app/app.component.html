@@ -1,21 +1,147 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+<mat-toolbar class="ziucolor">
+    <span *ngIf="!this.mobile">
+      ZIU - Sesiones de Preguntas y Respuestas - Tutorías en vivo.
+    </span>
+    <span *ngIf="this.mobile">
+        ZIU - Sesiones de Preg. y Resp.
+    </span>
+</mat-toolbar>
+
+<div class="row">
+  <div class="col-md-8">
+    <h5>Estimados Estudiantes, </h5>
+    <br/>
+    <i>{{ title }}</i>
+  </div>
+  <div class="col-md-3" style="text-align: right;">
+    <strong>Período: {{ this.year }}-{{ this.month > 6 ? "2" : "1" }}</strong>
+  </div>
+  <div class="col-md-1">
+    <!-- img width="80" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" -->
+    <img *ngIf="!this.mobile" width="80px" height="40px" alt="ZIU logo" src="assets/images/ZIU_logo.png" />
+    <img *ngIf="this.mobile"  width="60px" height="25px" alt="ZIU on mobile" src="assets/images/ZIU_logo.png" />
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<br/>
+<h2>Inquietudes, dudas, sugerencias</h2>
+<!--  Acordeon https://material.angular.io/components/expansion/overview  -->
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"><!-- <mat-expansion-panel 'hideToggle' para esconder ^ -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Pregunta
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="this.mobile">Tap para crear Pregunta</span>
+        <span *ngIf="!this.mobile">Click para crear nueva Pregunta</span>
+        <mat-icon>add_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- este TAG tiene un Media Query en styles.css -->
+    <mat-form-field>
+      <input matInput placeholder="Tu Nombre y Apellido" [(ngModel)]="nota.titulo">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Elije Curso..." [(ngModel)]="nota.categoria">
+        <mat-option *ngFor="let curso of cursos" [value]="curso.cod + ': ' + curso.nombre">
+          {{ curso.cod + ': ' + curso.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <textarea matInput placeholder="Deja aquí tu duda..." rows="2" [(ngModel)]="nota.cuerpo"></textarea>
+    </mat-form-field>
+    
+    <div class="row">
+      <div class="col-md-12" style="text-align: center">
+        <button mat-raised-button class="ziucolor" (click)="guardarNota()">{{ tituloBoton }}</button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span *ngIf="this.mobile">
+          Preguntas...
+        </span>
+        <span *ngIf="!this.mobile">
+          Preguntas para las Sesiones en vivo...
+        </span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="mobile == true">
+          Tap para Abrir/Cerrar
+        </span>
+        <span *ngIf="mobile == false">
+            Click para Abrir/Cerrar. Panel {{ step === 1 ? 'abierto' : 'cerrado' }}
+        </span>
+        <mat-icon>live_help</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <mat-card id="matFiltro">
+      <mat-select [(value)]="filtro">
+        <mat-option value="TODO">Mostrar todas las Preguntas</mat-option>
+        <mat-option *ngFor="let curso of cursos" [value]="curso.cod + ': ' + curso.nombre">
+          Mostrar solo las de {{ curso.cod + ': ' + curso.nombre }}
+        </mat-option>
+      </mat-select>
+      <br/>
+    </mat-card>
+
+    <ng-container *ngFor="let nota of notasFirebase">
+      <mat-card class="nota-lista" *ngIf="nota.categoria == filtro || filtro == 'TODO'">
+        
+          <p matLine class='id_subtitle'>
+              Preg. ID: {{ nota.id }}
+          </p>
+          <h3 matLine>
+            {{ nota.titulo }}
+            <div class='icono-eliminar' (click)="eliminarNota(nota)">&#10060;</div>
+            <div class='icono-eliminar editar-class' (click)="seleccionarNota(nota)">&#9998;</div><!-- UTF-8 Dingbats -->
+          </h3>
+          <p matLine>{{ nota.cuerpo }}</p>
+          <small matLine>
+            {{ nota.categoria }}
+            <div class='fecha-nota'>{{ nota.id | date }}</div>
+          </small>
+          <br/>
+        
+      </mat-card>
+    </ng-container>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Cursos habilitados...
+      </mat-panel-title>
+      <mat-panel-description>
+        Para realizar consultas
+        <mat-icon>list</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-card class="nota-lista" *ngFor="let curso of cursos">
+      <small>
+        <b>Código: {{ curso.cod }}</b> - {{ curso.nombre }}
+      </small>
+      <br/>
+    </mat-card>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
 
 <router-outlet></router-outlet>
+
+</div>
