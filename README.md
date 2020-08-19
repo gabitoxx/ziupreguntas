@@ -1,3 +1,8 @@
+# ZIU
+## Zion International University
+### Página web auxiliar para que los estudiantes dejen sus dudas e inquietudes
+Las dudas que aquí se dejan serán para que los Tutores de ZIU las respondan en las Sesiones en Vivo de Preguntas y Respuestas (P&R)
+
 # Pwa
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
